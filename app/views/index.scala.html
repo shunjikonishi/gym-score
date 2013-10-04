@@ -1,0 +1,62 @@
+@base("Best team of Gymnastics") {
+<script>
+$(function() {
+	activateHeader("home");
+})
+</script>
+
+<div class="jumbotron">
+	<h1 class="text-primary">Best team of Gymnastic</h1>
+	<p>体操競技の得点表から最強のチームを計算して算出します。</p>
+</div>
+<div class="row">
+	<div class="col-md-3">
+		<div id="sidebar" class="hidden-print" data-spy="affix" data-offset-top="300">
+			<ul class="nav">
+				<li><a href="#summary">概要</a></li>
+				<li><a href="#csv">CSVフォーマットについて</a></li>
+				<li><a href="#store">CSVの保存場所について</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-9 main">
+		<div class="page-header">
+			<h1 id="summary">概要</h1>
+		</div>
+		<p>CSV形式の得点表データを読み込んでソート可能な得点表テーブルを表示します。</p>
+		<p>また、すべての選手の得点から6-3-3, 6-5-4などの団体戦での得点が最も高くなる組み合わせを算出します。</p>
+		<div class="page-header">
+			<h1 id="csv">CSVフォーマットについて</h1>
+		</div>
+		<p>読み込むCSVの形式は以下の通りです。</p>
+		<ul>
+			<li>先頭文字が「#」で始まる行はコメント行です。</li>
+			<li>先頭列が「@@xxxx」で始まる行はヘッダ行です。</li>
+			<li>それ以外の行はデータ行です。</li>
+		</ul>
+		<p>ヘッダ行には以下があります。</p>
+		<ul>
+			<li>先頭列が「@@title」で始まる行はタイトル行です。2列目にタイトルを指定します。</li>
+			<li>先頭列が「@@link」で始まる行はリンク列です。2列目にリンク先のURLを指定します。</li>
+		</ul>
+		<p>リンク列は公式結果のページへのリンクなどに利用します。</p>
+		<p>ヘッダ行はデータ中のどこに出現しても良いですが、同じヘッダが複数回出現した場合は上書きされます。</p>
+		<p>データ行の形式は以下です。</p>
+		<ul>
+			<li>1列目は選手名。</li>
+			<li>2列目はチーム名。</li>
+			<li>3列目以降は得点。</li>
+			<li>男子の場合は得点は、床、あん馬、吊り輪、跳馬、平行棒、鉄棒の順。</li>
+			<li>女子の場合は得点は、跳馬、段違い平行棒、平均台、床の順。</li>
+			<li>得点列が数字でない場合や存在しない場合は0点扱いになります。</li>
+		</ul>
+		<p>男子の場合は6列、女子の場合は4列の得点列以降の列は無視されます。(以降の列に総合得点やその他の列があっても問題ありません。)</p>
+		<div class="page-header">
+			<h1 id="store">CSVの保存場所について</h1>
+		</div>
+		<p>このアプリにはCSVデータを保存する機能はありません。</p>
+		<p>代わりにインターネット上の任意の場所にCSVデータを保存しておけばそのデータを使用して得点表を表示する機能をそのうち作ろうかと思っています。</p>
+	</div>
+</div>
+
+}

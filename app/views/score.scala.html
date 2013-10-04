@@ -1,0 +1,146 @@
+@(gender: String, data: String, showIndex: Boolean, showData: Boolean)
+@base("Best team of Gymnastics") {
+<script>
+var app;
+$(function() {
+	var type = "@gender",
+		team = null;
+	
+	activateHeader(type);
+	app = new gymapp.GymnasticsScore(type);
+	
+	function parse() {
+		var data = $("#csv-data").val(),
+			best = $("#selTeamStyle").val().split("-");
+		app.parse(data);
+		app.sort("total");
+		app.buildAll($("#score-title"), $("#score-table"));
+		team = app.getBestTeam(parseInt(best[0]), parseInt(best[1]), $("#calc-list"));
+		app.buildBest($("#best-table"), team);
+		$("#team-total").text(team.getTotal().toFixed(3));
+	};
+	$("#selTeamStyle").change(function() {
+		var best = $("#selTeamStyle").val().split("-");
+		team = app.getBestTeam(parseInt(best[0]), parseInt(best[1]), $("#calc-list"));
+		app.buildBest($("#best-table"), team);
+		$("#team-total").text(team.getTotal().toFixed(3));
+	});
+	$("table").find("a").click(function() {
+		var idx = $(this).attr("href").substring(1),
+			target =  $(this).parents("table").attr("id");
+		if (target == "score-table") {
+			app.sort(idx);
+			app.buildAll($("#score-title"), $("#score-table"));
+		} else if (target == "best-table") {
+			team.sort(idx);
+			app.buildBest($("#best-table"), team);
+		}
+		return false;
+	});
+	$("#btnUpdate").click(parse);
+	parse();
+})
+</script>
+<div class="row">
+	<div class="col-md-3"　@if(!showIndex){style="display:none"}>
+		<div id="sidebar" class="hidden-print">
+			<ul class="nav">
+				@if(gender == "men") {
+					<li><a href="/men">編集</a></li>
+					<li><a href="/men?data=2013WorldChampionship_Qualification.csv">2013年 世界選手権　個人予選</a></li>
+					<li><a href="/men?data=2013WorldChampionship_Individual.csv">2013年 世界選手権　個人総合</a></li>
+				}
+				@if(gender == "women") {
+					<li><a href="/women">編集</a></li>
+					<li><a href="/women?data=2013WorldChampionship_Qualification.csv">2013年 世界選手権　個人予選</a></li>
+				}
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-9 main">
+		<div id="data-block" @if(!showData){style="display:none"}>
+			<div class="page-header">
+				<h2>データ</h2>
+			</div>
+			<p>データを編集して結果に反映させることができます。</p>
+			<textarea class="form-control" rows="10" id="csv-data">@data</textarea>
+			<p style="margin-top:10px;">
+				<button id="btnUpdate" class="btn btn-primary">更新</button>
+			</p>
+		</div>
+		<div class="page-header">
+			<h2 id="score-title">得点一覧</h2>
+		</div>
+		<table class="table table-striped" id="score-table">
+			<thead>
+				<tr>
+					<th>名前</th>
+					<th>チーム</th>
+					@if(gender == "men") {
+						<th><a href="#0">床</a></th>
+						<th><a href="#1">あん馬</a></th>
+						<th><a href="#2">吊輪</a></th>
+						<th><a href="#3">跳馬</a></th>
+						<th><a href="#4">平行棒</a></th>
+						<th><a href="#5">鉄棒</a></th>
+					}
+					@if(gender == "women") {
+						<th><a href="#0">跳馬</a></th>
+						<th><a href="#1">段違い平行棒</a></th>
+						<th><a href="#2">平均台</a></th>
+						<th><a href="#3">床</a></th>
+					}
+					<th><a href="#total">合計</a></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<div class="page-header">
+			<h2>ベストチーム</h2>
+		</div>
+		<div>
+			<label>チーム形式</label>
+			<select id="selTeamStyle">
+				<option value="6-3">6人チーム、BEST3</option>
+				<option value="6-4">6人チーム、BEST4</option>
+				<option value="6-5">6人チーム、BEST5</option>
+				<option value="5-3">5人チーム、BEST3</option>
+				<option value="5-4">5人チーム、BEST4</option>
+			</select>
+		</div>
+		<table class="table table-striped" id="best-table">
+			<thead>
+				<tr>
+					<th>名前</th>
+					<th>チーム</th>
+					@if(gender == "men") {
+						<th><a href="#0">床</a></th>
+						<th><a href="#1">あん馬</a></th>
+						<th><a href="#2">吊輪</a></th>
+						<th><a href="#3">跳馬</a></th>
+						<th><a href="#4">平行棒</a></th>
+						<th><a href="#5">鉄棒</a></th>
+					}
+					@if(gender == "women") {
+						<th><a href="#0">跳馬</a></th>
+						<th><a href="#1">段違い平行棒</a></th>
+						<th><a href="#2">平均台</a></th>
+						<th><a href="#3">床</a></th>
+					}
+					<th><a href="#total">合計</a></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<p style="font-weight: bold;font-size:larger;">
+			<label>チームトータル：　</label><sapn id="team-total"></span>
+		</p>
+		<h3>計算経過</h3>
+		<ul id="calc-list">
+		</ul>
+	</div>
+</div>
+
+}
