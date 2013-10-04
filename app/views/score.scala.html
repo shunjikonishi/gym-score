@@ -69,45 +69,22 @@ $(function() {
 			</p>
 		</div>
 		<div class="page-header">
-			<h2 id="score-title">得点一覧</h2>
-		</div>
-		<table class="table table-striped" id="score-table">
-			<thead>
-				<tr>
-					<th>名前</th>
-					<th>チーム</th>
-					@if(gender == "men") {
-						<th><a href="#0">床</a></th>
-						<th><a href="#1">あん馬</a></th>
-						<th><a href="#2">吊輪</a></th>
-						<th><a href="#3">跳馬</a></th>
-						<th><a href="#4">平行棒</a></th>
-						<th><a href="#5">鉄棒</a></th>
-					}
-					@if(gender == "women") {
-						<th><a href="#0">跳馬</a></th>
-						<th><a href="#1">段違い平行棒</a></th>
-						<th><a href="#2">平均台</a></th>
-						<th><a href="#3">床</a></th>
-					}
-					<th><a href="#total">合計</a></th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-		<div class="page-header">
 			<h2>ベストチーム</h2>
 		</div>
 		<div>
-			<label>チーム形式</label>
-			<select id="selTeamStyle">
-				<option value="6-3">6人チーム、BEST3</option>
-				<option value="6-4">6人チーム、BEST4</option>
-				<option value="6-5">6人チーム、BEST5</option>
-				<option value="5-3">5人チーム、BEST3</option>
-				<option value="5-4">5人チーム、BEST4</option>
-			</select>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="selTeamStyle">チーム形式</label>
+					<div class="col-sm-3"> 
+						<select id="selTeamStyle" class="form-control">
+							<option value="6-3">6人チーム、BEST3</option>
+							<option value="6-4">6人チーム、BEST4</option>
+							<option value="6-5">6人チーム、BEST5</option>
+							<option value="5-3">5人チーム、BEST3</option>
+							<option value="5-4">5人チーム、BEST4</option>
+						</select>
+					</div>
+				</div>
 		</div>
 		<table class="table table-striped" id="best-table">
 			<thead>
@@ -140,6 +117,34 @@ $(function() {
 		<h3>計算経過</h3>
 		<ul id="calc-list">
 		</ul>
+		<div class="page-header">
+			<h2 id="score-title">得点一覧</h2>
+		</div>
+		<table class="table table-striped" id="score-table">
+			<thead>
+				<tr>
+					<th>名前</th>
+					<th>チーム</th>
+					@if(gender == "men") {
+						<th><a href="#0">床</a></th>
+						<th><a href="#1">あん馬</a></th>
+						<th><a href="#2">吊輪</a></th>
+						<th><a href="#3">跳馬</a></th>
+						<th><a href="#4">平行棒</a></th>
+						<th><a href="#5">鉄棒</a></th>
+					}
+					@if(gender == "women") {
+						<th><a href="#0">跳馬</a></th>
+						<th><a href="#1">段違い平行棒</a></th>
+						<th><a href="#2">平均台</a></th>
+						<th><a href="#3">床</a></th>
+					}
+					<th><a href="#total">合計</a></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
 	</div>
 </div>
 
